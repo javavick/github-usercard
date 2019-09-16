@@ -112,7 +112,7 @@ const followersArray = [
   "bigknell"
 ];
 
-// Axios Get Request
+// Axios GET Request (Javavick)
 axios
   .get("https://api.github.com/users/javavick")
   .then((response) => {
@@ -126,3 +126,15 @@ axios
   .catch((error) => {
     console.log(`Error: ${error}`);
   });
+
+// Axio GET Request (Github Handles Array)
+followersArray.forEach((item) => {
+  axios
+    .get(`https://api.github.com/users/${item}`)
+    .then((response) => {
+      cards.appendChild(cardCreator(response.data));
+    })
+    .catch((error) => {
+      console.log(`Error: ${error}`);
+    });
+});
