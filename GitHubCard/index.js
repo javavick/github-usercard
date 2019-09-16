@@ -104,7 +104,9 @@ function followerCards(object) {
     .get(object.data.followers_url)
     .then((response) => {
       response.data.forEach((key) => {
-        cards.appendChild(cardCreator(key));
+        axios.get(key.url).then((response) => {
+          cards.appendChild(cardCreator(response.data));
+        });
       });
     })
     .catch((error) => {
