@@ -3,6 +3,8 @@
            https://api.github.com/users/<your name>
 */
 
+console.log(axios.get("https://api.github.com/users/javavick"));
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +47,51 @@ const followersArray = [];
 </div>
 
 */
+
+function cardCreator(object) {
+  // New Elements
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const address = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  // Attributes and Text
+  card.classList.add("card");
+  img.setAttribute("src", object.avatar_url);
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  name.textContent = object.name;
+  username.classList.add("username");
+  username.textContent = object.login;
+  location.textContent = `Location: ${object.location}`;
+  profile.textContent = "Profile: ";
+  address.setAttribute("href", object.html_url);
+  address.textContent = object.html_url;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = object.bio;
+
+  // Component Structure
+  profile.appendChild(address);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+
+  return card;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
