@@ -3,8 +3,6 @@
            https://api.github.com/users/<your name>
 */
 
-console.log(axios.get("https://api.github.com/users/javavick"));
-
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -26,8 +24,6 @@ console.log(axios.get("https://api.github.com/users/javavick"));
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -48,6 +44,15 @@ const followersArray = [];
 
 */
 
+/* List of LS Instructors Github username's: 
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+*/
+
+/*========== CARD CREATOR FUNCTION ==========*/
 function cardCreator(object) {
   // New Elements
   const card = document.createElement("div");
@@ -76,7 +81,7 @@ function cardCreator(object) {
   address.textContent = object.html_url;
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
-  bio.textContent = object.bio;
+  bio.textContent = `Bio: ${object.bio}`;
 
   // Component Structure
   profile.appendChild(address);
@@ -93,10 +98,31 @@ function cardCreator(object) {
   return card;
 }
 
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
+/*========== AXIOS GET REQUEST (JAVAVICK) ==========*/
+
+// Element to append cards to
+const cards = document.querySelector(".cards");
+
+// Array of Github Handles
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+// Axios Get Request
+axios
+  .get("https://api.github.com/users/javavick")
+  .then((response) => {
+    console.log(response);
+    return response;
+  })
+  .then((response) => {
+    cards.appendChild(cardCreator(response.data));
+    return response;
+  })
+  .catch((error) => {
+    console.log(`Error: ${error}`);
+  });
