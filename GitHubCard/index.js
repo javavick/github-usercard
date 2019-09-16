@@ -98,6 +98,20 @@ function cardCreator(object) {
   return card;
 }
 
+/*========== FOLLOWER CARDS FUNCTION ==========*/
+function followerCards(object) {
+  axios
+    .get(object.data.followers_url)
+    .then((response) => {
+      response.data.forEach((key) => {
+        cards.appendChild(cardCreator(key));
+      });
+    })
+    .catch((error) => {
+      console.log(`Error: ${error}`);
+    });
+}
+
 /*========== AXIOS GET REQUEST (JAVAVICK) ==========*/
 
 // Element to append cards to
@@ -122,6 +136,9 @@ axios
   .then((response) => {
     cards.appendChild(cardCreator(response.data));
     return response;
+  })
+  .then((response) => {
+    followerCards(response);
   })
   .catch((error) => {
     console.log(`Error: ${error}`);
